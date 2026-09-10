@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>痛點收集｜AI 資訊素養與應用</title>
+<style>
+  :root{
+    --bg:#fdf8f4; --card:#ffffff; --line:#ecdfd4; --ink:#33291f; --muted:#8a7b6d;
+    --accent:#d9793f; --accent-soft:#fbeade; --ok:#4a7c59; --ok-soft:#eaf3ed;
+    --err:#c0392b; --err-soft:#fdecea;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#1c1815; --card:#26211d; --line:#3a322b; --ink:#f0e8e0; --muted:#a29486;
+      --accent:#e08a52; --accent-soft:#3a2a1e; --ok:#7fb08e; --ok-soft:#233029;
+      --err:#f08578; --err-soft:#3a221f;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:0 0 40px;background:var(--bg);color:var(--ink);line-height:1.7;
+       font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+       font-size:17px;-webkit-text-size-adjust:100%}
+  .wrap{max-width:540px;margin:0 auto;padding:0 16px}
+
+  header{background:linear-gradient(140deg,var(--accent) 0%,#c4642f 100%);color:#fff;
+         padding:30px 16px 26px;margin-bottom:22px}
+  header .in{max-width:540px;margin:0 auto}
+  header .eyebrow{font-size:.8rem;letter-spacing:2px;opacity:.9;margin-bottom:6px}
+  header h1{margin:0 0 8px;font-size:1.6rem;font-weight:800;line-height:1.35}
+  header p{margin:0;font-size:.95rem;opacity:.95}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+        padding:20px 18px;margin-bottom:16px}
+  h2{font-size:1.1rem;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+  h2 .n{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;
+        display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;
+        font-weight:800;flex:0 0 26px}
+  .hint{color:var(--muted);font-size:.88rem;margin:6px 0 14px;line-height:1.6}
+
+  .groups{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+  .groups button{padding:16px 0;border:2px solid var(--line);border-radius:12px;background:var(--bg);
+                 color:var(--ink);font:inherit;font-size:1.15rem;font-weight:700;cursor:pointer}
+  .groups button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  input[type="text"],textarea{width:100%;padding:13px 14px;border:1px solid var(--line);
+       border-radius:11px;background:var(--bg);color:var(--ink);font:inherit;font-size:1rem}
+  textarea{resize:vertical;min-height:52px;line-height:1.55}
+  .row{display:flex;gap:9px;align-items:flex-start;margin-bottom:10px}
+  .row .idx{flex:0 0 26px;height:52px;display:flex;align-items:center;justify-content:center;
+            color:var(--accent);font-weight:800}
+  .row .del{flex:0 0 34px;height:52px;border:0;background:none;color:var(--muted);
+            font-size:1.3rem;cursor:pointer;line-height:1}
+  .row .del:hover{color:var(--err)}
+  .addbtn{width:100%;padding:13px;border:1.5px dashed var(--accent);border-radius:11px;
+          background:transparent;color:var(--accent);font:inherit;font-weight:700;cursor:pointer}
+
+  .worst{display:flex;flex-direction:column;gap:8px}
+  .worst button{text-align:left;padding:13px 14px;border:2px solid var(--line);border-radius:11px;
+                background:var(--bg);color:var(--ink);font:inherit;font-size:.98rem;cursor:pointer;
+                line-height:1.5}
+  .worst button.on{background:var(--accent-soft);border-color:var(--accent);font-weight:700}
+  .worst .none{color:var(--muted);font-size:.9rem;padding:8px 0}
+
+  #send{width:100%;padding:18px;border:0;border-radius:14px;background:var(--accent);color:#fff;
+        font:inherit;font-size:1.15rem;font-weight:800;letter-spacing:1px;cursor:pointer;
+        margin-top:4px}
+  #send:disabled{opacity:.45;cursor:not-allowed}
+
+  .msg{border-radius:12px;padding:14px 16px;margin-top:14px;font-size:.95rem;display:none}
+  .msg.on{display:block}
+  .msg.ok{background:var(--ok-soft);border-left:4px solid var(--ok)}
+  .msg.err{background:var(--err-soft);border-left:4px solid var(--err)}
+  .msg b{display:block;margin-bottom:4px}
+  .msg pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:10px;
+           border-radius:8px;font-size:.85rem;margin:10px 0 0;font-family:inherit;line-height:1.6}
+  .copybtn{margin-top:10px;padding:10px 16px;border:1px solid var(--line);border-radius:9px;
+           background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
+
+  #done{display:none;text-align:center;padding:34px 18px}
+  #done.on{display:block}
+  #done .tick{font-size:3.4rem;line-height:1}
+  #done h2{justify-content:center;font-size:1.5rem;margin:12px 0 8px}
+  #done p{color:var(--muted);margin:6px 0}
+  #again{margin-top:20px;padding:13px 22px;border:1px solid var(--line);border-radius:11px;
+         background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
+
+  footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;line-height:1.8;
+         padding:0 16px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="in">
+    <div class="eyebrow">AI 資訊素養與應用（通識3）</div>
+    <h1>寵物美容的工作上<br>哪些事最煩、最花時間？</h1>
+    <p>自己打工遇到的、實習看到的、聽別人講的都可以</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div id="form">
+
+    <div class="card">
+      <h2><span class="n">1</span>你是第幾組？</h2>
+      <div class="hint">一組派一個人填就好。</div>
+      <div class="groups" id="groups"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">2</span>寫下你們想到的事</h2>
+      <div class="hint">
+        <strong>越具體越好</strong>——不要寫「很累」，要寫「每次都要重新算價格」這種。<br>
+        至少寫五項，寫越多越好。
+      </div>
+      <div id="items"></div>
+      <button class="addbtn" id="add">＋ 再加一項</button>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">3</span>其中最煩的是哪一項？</h2>
+      <div class="hint">點一下你們覺得最需要被解決的那一項。</div>
+      <div class="worst" id="worst"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">4</span>填寫人（可不填）</h2>
+      <div class="hint">不填也沒關係，我們只看內容不看是誰寫的。</div>
+      <input type="text" id="name" placeholder="例如：小美　或　留空" maxlength="20">
+    </div>
+
+    <button id="send">送出</button>
+    <div class="msg err" id="err"></div>
+
+  </div>
+
+  <div id="done">
+    <div class="tick">✅</div>
+    <h2>收到了，謝謝！</h2>
+    <p>你們寫的這些，會變成這學期要解決的題目。</p>
+    <p><strong>期末你們要做出來的東西，就是從這裡長出來的。</strong></p>
+    <button id="again">再填一份</button>
+  </div>
+
+  <footer>
+    本表單只收集上課討論的內容，<strong>不會蒐集學號、電話或任何個人資料</strong>。<br>
+    AI 資訊素養與應用（通識3）｜中華醫事科技大學
+  </footer>
+
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   ★ 部署後把下面這行換成你的 Google Apps Script 網址 ★
+   （在 Apps Script 按「部署 → 新增部署作業 → 網頁應用程式」，
+     存取權限選「任何人」，複製產生的 /exec 網址貼進來）
+   ═══════════════════════════════════════════════════════════ */
+const ENDPOINT = "";   // 例如 "https://script.google.com/macros/s/AKfy.../exec"
+
+const MIN_ROWS = 5;
+let group = null, worst = null;
+
+/* ── 組別 1–8 ── */
+const gWrap = document.getElementById("groups");
+for (let g = 1; g <= 8; g++){
+  const b = document.createElement("button");
+  b.type = "button"; b.textContent = g;
+  b.onclick = function(){
+    group = g;
+    [...gWrap.children].forEach(function(x){ x.classList.remove("on"); });
+    b.classList.add("on");
+  };
+  gWrap.appendChild(b);
+}
+
+/* ── 痛點欄位 ── */
+const items = document.getElementById("items");
+function addRow(){
+  const r = document.createElement("div");
+  r.className = "row";
+  const idx = document.createElement("div");
+  idx.className = "idx";
+  const ta = document.createElement("textarea");
+  ta.rows = 1;
+  ta.placeholder = "例如：每次都要重新算價格";
+  ta.addEventListener("input", function(){
+    this.style.height = "auto";
+    this.style.height = Math.max(52, this.scrollHeight) + "px";
+    refreshWorst();
+  });
+  const del = document.createElement("button");
+  del.type = "button"; del.className = "del"; del.textContent = "×";
+  del.onclick = function(){
+    if (items.children.length <= 1) { ta.value = ""; refreshWorst(); return; }
+    r.remove(); renumber(); refreshWorst();
+  };
+  r.append(idx, ta, del);
+  items.appendChild(r);
+  renumber();
+}
+function renumber(){
+  [...items.children].forEach(function(r, k){ r.querySelector(".idx").textContent = k + 1; });
+}
+for (let k = 0; k < MIN_ROWS; k++) addRow();
+document.getElementById("add").onclick = function(){ addRow(); };
+
+/* ── 「最煩的一項」跟著上面的內容更新 ── */
+function values(){
+  return [...items.querySelectorAll("textarea")]
+    .map(function(t){ return t.value.trim(); })
+    .filter(function(v){ return v.length > 0; });
+}
+function refreshWorst(){
+  const vs = values();
+  const box = document.getElementById("worst");
+  if (!vs.length){
+    box.innerHTML = '<div class="none">先在上面寫幾項，這裡就會出現選項。</div>';
+    worst = null; return;
+  }
+  box.innerHTML = "";
+  vs.forEach(function(v){
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = v;
+    if (v === worst) b.classList.add("on");
+    b.onclick = function(){
+      worst = v;
+      [...box.children].forEach(function(x){ x.classList.remove("on"); });
+      b.classList.add("on");
+    };
+    box.appendChild(b);
+  });
+  if (worst && !vs.includes(worst)) worst = null;
+}
+refreshWorst();
+
+/* ── 送出 ── */
+const errBox = document.getElementById("err");
+function showErr(title, body, raw){
+  errBox.innerHTML = "<b>" + title + "</b>" + body +
+    (raw ? '<pre id="raw">' + raw.replace(/</g,"&lt;") + "</pre>" +
+           '<button class="copybtn" id="cp">📋 複製內容</button>' : "");
+  errBox.classList.add("on");
+  const cp = document.getElementById("cp");
+  if (cp) cp.onclick = function(){
+    navigator.clipboard.writeText(raw).then(function(){ cp.textContent = "✅ 已複製"; });
+  };
+  errBox.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+document.getElementById("send").onclick = function(){
+  errBox.classList.remove("on");
+  const vs = values();
+  if (!group){ showErr("還沒選組別", "請先在第 1 題選你是第幾組。"); return; }
+  if (!vs.length){ showErr("還沒寫東西", "第 2 題至少要寫一項。"); return; }
+
+  const payload = { group: group, name: document.getElementById("name").value.trim(),
+                    items: vs, worst: worst || "" };
+  const plain = "第 " + group + " 組" +
+                (payload.name ? "（" + payload.name + "）" : "") + "\n" +
+                vs.map(function(v, k){ return (k + 1) + ". " + v; }).join("\n") +
+                (worst ? "\n最煩的：" + worst : "");
+
+  if (!ENDPOINT){
+    showErr("表單還沒接上收件端",
+      "老師還沒設定接收網址。請先把下面的內容截圖或複製給老師。", plain);
+    return;
+  }
+
+  const btn = this;
+  btn.disabled = true; btn.textContent = "送出中…";
+  fetch(ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  }).then(function(r){
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    document.getElementById("form").style.display = "none";
+    document.getElementById("done").classList.add("on");
+    window.scrollTo({top:0, behavior:"smooth"});
+  }).catch(function(e){
+    btn.disabled = false; btn.textContent = "送出";
+    showErr("送出失敗（" + e.message + "）",
+      "網路可能不穩。可以再按一次送出；如果還是不行，請把下面的內容截圖給老師。", plain);
+  });
+};
+
+document.getElementById("again").onclick = function(){ location.reload(); };
+</script>
+</body>
+</html>
