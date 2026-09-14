@@ -2,8 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>選題目｜AI 資訊素養與應用</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>痛點收集｜AI 資訊素養與應用</title>
 <style>
   :root{
     --bg:#fdf8f4; --card:#ffffff; --line:#ecdfd4; --ink:#33291f; --muted:#8a7b6d;
@@ -55,37 +55,15 @@
   .addbtn{width:100%;padding:13px;border:1.5px dashed var(--accent);border-radius:11px;
           background:transparent;color:var(--accent);font:inherit;font-weight:700;cursor:pointer}
 
-  .pickgrp{margin-bottom:18px}
-  .pickgrp:last-child{margin-bottom:0}
-  .pickgrp .gt{font-weight:800;font-size:.95rem;color:var(--accent);margin-bottom:2px}
-  .pickgrp .gd{color:var(--muted);font-size:.83rem;margin-bottom:9px}
-  .opt{display:flex;gap:11px;align-items:flex-start;width:100%;text-align:left;
-       padding:13px 14px;border:2px solid var(--line);border-radius:11px;background:var(--bg);
-       color:var(--ink);font:inherit;font-size:.97rem;line-height:1.5;cursor:pointer;margin-bottom:8px}
-  .opt .bx{flex:0 0 22px;height:22px;border:2px solid var(--line);border-radius:6px;
-           display:flex;align-items:center;justify-content:center;font-size:.8rem;
-           color:transparent;margin-top:1px}
-  .opt.on{background:var(--accent-soft);border-color:var(--accent);font-weight:700}
-  .opt.on .bx{background:var(--accent);border-color:var(--accent);color:#fff}
 
-  .card.intro{background:var(--accent-soft);border-color:var(--accent)}
-  .card.intro .hint{color:var(--ink)}
-  .topics{display:flex;flex-direction:column;gap:9px}
-  .tgrp{margin-bottom:4px}
-  .tgrp .th{font-weight:800;font-size:.92rem;color:var(--accent);margin:12px 0 7px}
-  .tgrp:first-child .th{margin-top:0}
-  .topic{display:flex;gap:11px;align-items:flex-start;width:100%;text-align:left;
-         padding:13px 14px;border:2px solid var(--line);border-radius:11px;background:var(--bg);
-         color:var(--ink);font:inherit;cursor:pointer;margin-bottom:8px;line-height:1.5}
-  .topic .rd{flex:0 0 22px;height:22px;border:2px solid var(--line);border-radius:50%;
-             display:flex;align-items:center;justify-content:center;margin-top:2px}
-  .topic .rd i{width:10px;height:10px;border-radius:50%;background:transparent;display:block}
-  .topic.on{background:var(--accent-soft);border-color:var(--accent)}
-  .topic.on .rd{border-color:var(--accent)}
-  .topic.on .rd i{background:var(--accent)}
-  .topic .tn{font-weight:800;font-size:1rem;display:block}
-  .topic .td{color:var(--muted);font-size:.86rem;display:block;margin-top:2px}
   .topic.on .td{color:var(--ink)}
+
+  .worst{display:flex;flex-direction:column;gap:8px}
+  .worst button{text-align:left;padding:13px 14px;border:2px solid var(--line);border-radius:11px;
+                background:var(--bg);color:var(--ink);font:inherit;font-size:.98rem;cursor:pointer;
+                line-height:1.5}
+  .worst button.on{background:var(--accent-soft);border-color:var(--accent);font-weight:700}
+  .worst .none{color:var(--muted);font-size:.9rem;padding:8px 0}
 
   .scope{background:var(--err-soft);border-left:4px solid var(--err);border-radius:0 10px 10px 0;
          padding:12px 14px;margin-top:16px;font-size:.87rem;line-height:1.65}
@@ -124,8 +102,8 @@
 <header>
   <div class="in">
     <div class="eyebrow">AI 資訊素養與應用（通識3）</div>
-    <h1>你們這組<br>要做哪三個工具？</h1>
-    <p><strong>一組填一份</strong>　·　要算的、要查的、要說明的各挑一個</p>
+    <h1>寵物美容的工作上<br>哪些事最煩、最花時間？</h1>
+    <p>自己打工遇到的、實習看到的、聽別人講的都可以</p>
   </div>
 </header>
 
@@ -134,52 +112,37 @@
   <div id="form">
 
     <div class="card">
-      <h2><span class="n">1</span>你們是第幾組？</h2>
-      <div class="hint"><strong>一組派一個人填就好。</strong>四個人先討論好再填。</div>
+      <h2><span class="n">1</span>你是第幾組？</h2>
+      <div class="hint">一組派一個人填就好。</div>
       <div class="groups" id="groups"></div>
-      <div class="hint" style="margin:14px 0 8px"><strong>填表的人</strong>（可不填）</div>
-      <input type="text" id="name" placeholder="例如：小美　或　留空" maxlength="20">
-    </div>
-
-    <div class="card intro">
-      <h2><span class="n">2</span>你們要做的是什麼</h2>
-      <div class="hint" style="margin-bottom:0">
-        這學期你們這組要做出一個<strong>寵物美容工作室的工具網站</strong>：<br>
-        <strong>一個首頁　＋　三個小工具</strong>，四個人一人負責一頁。<br><br>
-        三個工具分別是<strong>「要算的」「要查的」「要說明的」各一個</strong>——
-        下面三題，<strong>一題挑一個</strong>。
-      </div>
     </div>
 
     <div class="card">
-      <h2><span class="n">3</span>要算的　挑一個</h2>
-      <div class="hint">輸入數字 → 算出答案</div>
-      <div class="topics" id="t-calc"></div>
-    </div>
-
-    <div class="card">
-      <h2><span class="n">4</span>要查的　挑一個</h2>
-      <div class="hint">選一個 → 查出說明</div>
-      <div class="topics" id="t-look"></div>
-    </div>
-
-    <div class="card">
-      <h2><span class="n">5</span>要說明的　挑一個</h2>
-      <div class="hint">填一填 → 產生一段可以直接複製給客人的文字</div>
-      <div class="topics" id="t-note"></div>
-    </div>
-
-    <div class="card">
-      <h2><span class="n">6</span>想做清單上沒有的？</h2>
+      <h2><span class="n">2</span>寫下你們想到的事</h2>
       <div class="hint">
-        沒有就<strong>留空</strong>。有想法的話寫在這裡，老師會看做不做得出來。
+        <strong>越具體越好</strong>——不要寫「很累」，要寫「每次都要重新算價格」這種。<br>
+        至少寫五項，寫越多越好。
       </div>
-      <input type="text" id="own" placeholder="例如：美容前後對比照展示頁" maxlength="60">
+      <div id="items"></div>
+      <button class="addbtn" id="add">＋ 再加一項</button>
       <div class="scope">
-        <b>⚠️ 這學期做不到的</b>
-        「<strong>客戶資料管理</strong>」「<strong>線上預約系統</strong>」「<strong>會員登入</strong>」這種，
-        要記住每一個客人的資料、要能登入查自己的東西——<strong>這學期做不出來</strong>。
+        <b>💡 想一想</b>
+        有沒有什麼事情是<strong>每一隻狗都要重做一次</strong>的？
+        客人<strong>最常問你們什麼</strong>？
+        有沒有什麼話是<strong>每次都要重打一遍</strong>給飼主的？
       </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">3</span>其中最煩的是哪一項？</h2>
+      <div class="hint">點一下你們覺得<strong>最需要被解決</strong>的那一項。</div>
+      <div class="worst" id="worst"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">4</span>填寫人（可不填）</h2>
+      <div class="hint">不填也沒關係，我們只看內容不看是誰寫的。</div>
+      <input type="text" id="name" placeholder="例如：小美　或　留空" maxlength="20">
     </div>
 
     <button id="send">送出</button>
@@ -190,101 +153,107 @@
   <div id="done">
     <div class="tick">✅</div>
     <h2>收到了，謝謝！</h2>
-    <p>第 5 週上課，你們四個人都會先做「<strong>要算的</strong>」那一個——那是<strong>個人的期中作品</strong>。</p>
-    <p>後半學期再把另外兩個做出來，<strong>加上首頁，就是你們這組的期末作品。</strong></p>
+    <p>你們寫的這些，<strong>下禮拜上課會拿出來用</strong>。</p>
+    <p>這學期要做的，就是把這幾件事變成一個網頁，<strong>點一下就好</strong>。</p>
     <button id="again">再填一份</button>
   </div>
 
   <footer>
-    本表單只收集上課討論的內容，<strong>不會蒐集學號、電話或任何個人資料</strong>。<br>
+    本表單只收集上課討論的內容，<strong>不會蒐集學號、電話或任何個人資料。</strong><br>
     AI 資訊素養與應用（通識3）｜中華醫事科技大學
   </footer>
 
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════════════════
-   ★ 部署後把下面這行換成你的 Google Apps Script 網址 ★
-   （在 Apps Script 按「部署 → 新增部署作業 → 網頁應用程式」，
-     存取權限選「任何人」，複製產生的 /exec 網址貼進來）
-   ═══════════════════════════════════════════════════════════ */
-const ENDPOINT = "https://script.google.com/macros/s/AKfycbw2dDJohDnpTh9tKL8AxYA5EZ4YRa-oOfBSrrWd4EUe9ToM0UksXGPKs9qr8c172SwH/exec";   // 例如 "https://script.google.com/macros/s/AKfy.../exec"
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbyAo8fivZKE7oh9HDa12i4_PIl00kA8GqT26P9vYx-lkRM8XXCmB7NM3K_bQ1KfJvhInA/exec";
 
-let group = null;
+const MIN_ROWS = 5;
+let group = null, worst = null;
 
-/* ── 組別 1–8 ── */
-const gWrap = document.getElementById("groups");
-for (let g = 1; g <= 8; g++){
-  const b = document.createElement("button");
-  b.type = "button"; b.textContent = g;
-  b.onclick = function(){
-    group = g;
-    [...gWrap.children].forEach(function(x){ x.classList.remove("on"); });
-    b.classList.add("on");
-  };
-  gWrap.appendChild(b);
-}
-
-/* ── 24 個題目 ── */
-const TOPICS = [
-  ["calc", [
-    ["洗剪吹價格試算器", "選體型、毛長、要做哪些服務 → 算出總價"],
-    ["寵物年齡換算器", "輸入年齡、選狗或貓 → 換算成人類年齡＋生命階段"],
-    ["每日飼料量計算機", "輸入體重、年齡、活動量 → 算出一天該吃幾公克"],
-    ["保養到期日計算器", "輸入上次除蚤／驅蟲／疫苗的日期 → 算出下次哪一天、還剩幾天"],
-    ["今日排程試算", "輸入今天有幾隻、分別什麼體型 → 算出大概要做到幾點"],
-    ["理想體重檢查", "輸入品種和目前體重 → 判斷偏瘦／正常／過重"],
-    ["洗澡頻率建議", "選品種、毛質、住家環境 → 算出幾天該洗一次"],
-    ["幼犬疫苗時程表", "輸入出生日期 → 列出每一劑疫苗該打的日期"]
-  ]],
-  ["look", [
-    ["狗貓禁食查詢表", "選一種食物 → 顯示能不能吃、危險程度、吃到怎麼辦"],
-    ["品種護理指南", "選品種 → 顯示多久洗一次、怎麼梳、要注意什麼"],
-    ["打結程度判斷", "選打結的狀況 → 建議可以梳開，還是只能剃掉"],
-    ["皮膚狀況自我檢查", "勾選看到的症狀 → 建議要不要請飼主帶去看醫生"],
-    ["美容方案推薦", "回答三四個問題 → 推薦適合這隻狗的服務方案"],
-    ["美容工具對照表", "選毛質和想要的效果 → 該用哪一種剪刀或梳子"],
-    ["常見蟲害辨識", "選看到的狀況 → 是跳蚤、壁蝨還是疥癬，怎麼處理"],
-    ["狗狗情緒訊號對照", "選尾巴、耳朵、姿勢 → 牠現在可能在想什麼"]
-  ]],
-  ["note", [
-    ["剃毛後叮嚀產生器", "勾今天做了什麼 → 產生一段傳給飼主的注意事項"],
-    ["交班紀錄產生器", "填今天做了哪幾隻、狀況如何 → 產生一段整齊的交班紀錄"],
-    ["社群貼文產生器", "填品種、做了什麼、想講的重點 → 產生一則 IG 貼文＋hashtag"],
-    ["美容前同意書產生器", "勾選要做的項目和風險 → 產生一份給飼主確認的文字"],
-    ["美容完成報告產生器", "填今天的狀況 → 產生一份交給飼主的完成報告"],
-    ["客訴回覆範本產生器", "選客訴類型和你的立場 → 產生一段得體的回覆"],
-    ["新客人歡迎訊息產生器", "填店名和服務特色 → 產生一段歡迎與說明的訊息"],
-    ["居家保養說明產生器", "選品種和目前狀況 → 產生一份飼主在家該怎麼照顧的說明"]
-  ]]
-];
-
-const chosen = { calc:"", look:"", note:"" };
-
-TOPICS.forEach(function(g){
-  const kind = g[0];
-  const box = document.getElementById("t-" + kind);
-  g[1].forEach(function(t){
+/* ── 組別 ── */
+(function(){
+  const box = document.getElementById("groups");
+  for (let i = 1; i <= 8; i++){
     const b = document.createElement("button");
-    b.type = "button"; b.className = "topic";
-    const rd = document.createElement("span");
-    rd.className = "rd";
-    rd.appendChild(document.createElement("i"));
-    const tx = document.createElement("span");
-    const nm = document.createElement("span");
-    nm.className = "tn"; nm.textContent = t[0];
-    const de = document.createElement("span");
-    de.className = "td"; de.textContent = t[1];
-    tx.append(nm, de);
-    b.append(rd, tx);
+    b.type = "button"; b.textContent = i;
     b.onclick = function(){
-      chosen[kind] = t[0];
-      [...box.querySelectorAll(".topic")].forEach(function(x){ x.classList.remove("on"); });
+      group = i;
+      [...box.children].forEach(function(x){ x.classList.remove("on"); });
+      b.classList.add("on");
+    };
+    box.appendChild(b);
+  }
+})();
+
+/* ── 痛點欄位 ── */
+const PLACEHOLDERS = [
+  "例如：洗澡加剪毛每次都要重算價格",
+  "例如：客人一直問狗不能吃什麼",
+  "例如：剃毛後的注意事項每次都要重打",
+  "例如：不同品種怎麼護理，新人常搞錯",
+  "例如：下次該驅蟲是哪天要一直翻本子",
+  "例如：交班的時候要重寫一次今天做了什麼"
+];
+const items = document.getElementById("items");
+
+function addRow(){
+  const r = document.createElement("div");
+  r.className = "row";
+  const idx = document.createElement("div");
+  idx.className = "idx";
+  const ta = document.createElement("textarea");
+  ta.rows = 1;
+  ta.placeholder = PLACEHOLDERS[items.children.length % PLACEHOLDERS.length];
+  ta.addEventListener("input", function(){
+    this.style.height = "auto";
+    this.style.height = Math.max(52, this.scrollHeight) + "px";
+    refreshWorst();
+  });
+  const del = document.createElement("button");
+  del.type = "button"; del.className = "del"; del.textContent = "×";
+  del.onclick = function(){
+    if (items.children.length <= 1){ ta.value = ""; refreshWorst(); return; }
+    r.remove(); renumber(); refreshWorst();
+  };
+  r.append(idx, ta, del);
+  items.appendChild(r);
+  renumber();
+}
+function renumber(){
+  [...items.children].forEach(function(r, k){ r.querySelector(".idx").textContent = k + 1; });
+}
+for (let k = 0; k < MIN_ROWS; k++) addRow();
+document.getElementById("add").onclick = function(){ addRow(); };
+
+/* ── 「最煩的一項」跟著上面的內容更新 ── */
+function values(){
+  return [...items.querySelectorAll("textarea")]
+    .map(function(t){ return t.value.trim(); })
+    .filter(function(v){ return v.length > 0; });
+}
+function refreshWorst(){
+  const vs = values();
+  const box = document.getElementById("worst");
+  if (!vs.length){
+    box.innerHTML = '<div class="none">先在上面寫幾項，這裡就會出現選項。</div>';
+    worst = null; return;
+  }
+  box.innerHTML = "";
+  vs.forEach(function(v){
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = v;
+    if (v === worst) b.classList.add("on");
+    b.onclick = function(){
+      worst = v;
+      [...box.children].forEach(function(x){ x.classList.remove("on"); });
       b.classList.add("on");
     };
     box.appendChild(b);
   });
-});
+  if (worst && vs.indexOf(worst) < 0) worst = null;
+}
+refreshWorst();
 
 /* ── 送出 ── */
 const errBox = document.getElementById("err");
@@ -302,20 +271,15 @@ function showErr(title, body, raw){
 
 document.getElementById("send").onclick = function(){
   errBox.classList.remove("on");
-  const nm = document.getElementById("name").value.trim();
-  const own = document.getElementById("own").value.trim();
+  const vs = values();
   if (!group){ showErr("還沒選組別", "請先在第 1 題選你們是第幾組。"); return; }
-  if (!chosen.calc){ showErr("「要算的」還沒挑", "第 3 題要挑一個。"); return; }
-  if (!chosen.look){ showErr("「要查的」還沒挑", "第 4 題要挑一個。"); return; }
-  if (!chosen.note){ showErr("「要說明的」還沒挑", "第 5 題要挑一個。"); return; }
+  if (!vs.length){ showErr("還沒寫東西", "第 2 題至少要寫一項。"); return; }
 
-  const payload = { group: group, name: nm,
-                    calc: chosen.calc, look: chosen.look, note: chosen.note, own: own };
+  const nm = document.getElementById("name").value.trim();
+  const payload = { group: group, name: nm, items: vs, worst: worst || "" };
   const plain = "第 " + group + " 組" + (nm ? "（" + nm + "）" : "") + "\n" +
-                "要算的：" + chosen.calc + "\n" +
-                "要查的：" + chosen.look + "\n" +
-                "要說明的：" + chosen.note +
-                (own ? "\n自己提的：" + own : "");
+                vs.map(function(v, k){ return (k + 1) + ". " + v; }).join("\n") +
+                (worst ? "\n最煩的：" + worst : "");
 
   if (!ENDPOINT){
     showErr("表單還沒接上收件端",
@@ -341,7 +305,9 @@ document.getElementById("send").onclick = function(){
   });
 };
 
-document.getElementById("again").onclick = function(){ location.reload(); };
+document.getElementById("again").onclick = function(){
+  location.reload();
+};
 </script>
 </body>
 </html>
